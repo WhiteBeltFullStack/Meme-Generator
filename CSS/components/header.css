@@ -37,6 +37,8 @@
   border-radius: 5px;
   padding: 3px;
   transition: 500ms;
+
+  user-select: none;
 }
 
 .main-nav ul li a:hover {

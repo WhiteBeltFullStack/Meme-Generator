@@ -1,16 +1,26 @@
-.editor-container{
-    display: flex;
-    gap: 20px;
-    margin: 20px;
+.editor-container {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 20px;
+  margin: 20px;
+  margin-inline: auto;
 }
 
-.canvas-container{
-    margin-inline:auto;
-    width: 800px;
-    background-color: rgb(236, 228, 228);
-    border: 1px solid rgb(214, 205, 205);
+.canvas-container {
+  margin-inline: auto;
+  width: 60vw;
+  background-color: rgb(236, 228, 228);
+  border: 1px solid rgb(214, 205, 205);
 }
 
-.editor-container .actions-container{
-    width: 20vw;
+.editor-container .actions-container {
+  display: flex;
+  flex-direction: column;
+
+  gap: 5px;
+  width: max-content;
+  border: 3px solid black;
+  padding: 10px;
+
+  border-radius: 10px;
 }

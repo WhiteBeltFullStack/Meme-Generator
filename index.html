@@ -25,8 +25,13 @@
           <canvas height="450" width="450"></canvas>
         </div>
         <div class="actions-container">
-
-            <input type="text" data-trans="add-text" class="meme-input" placeholder="Add Text Here" oninput="onAddText(this.value)">
+          <input
+            type="text"
+            data-trans="add-text"
+            class="meme-input"
+            placeholder="Add Text Here"
+            oninput="onWriteText(this.value)"
+          />
 
           <label for="color-pick">
             Color
@@ -68,6 +73,7 @@
         </datalist>
       </div>
       <div class="key-words">
+
         <ul class="no-style flex">
           <li>Happy</li>
           <li>Sad</li>

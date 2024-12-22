@@ -2,7 +2,9 @@
   text-align: center;
 }
 
-/* .editor-section {
-  height: 70dvh;
-  margin-block-end: 10vh;
-} */
+.editor-section {
+  width: 80vw;
+
+  margin-inline: auto;
+  padding: 20px;
+}
