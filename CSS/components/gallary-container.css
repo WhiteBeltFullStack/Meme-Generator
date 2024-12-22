@@ -1,0 +1,23 @@
+.gallary-container {
+  column-count: 3;
+  column-width:220px;
+
+  width: 80vw;
+
+  column-gap: 1em;
+  margin: 10px;
+  padding: 10px;
+  margin-inline: auto;
+}
+
+.gallary-container > img {
+  margin-block-end: 30px;
+  box-shadow: inset;
+
+  box-shadow: 0px 0px 10px 0px;
+  transition: 500ms;
+}
+
+.gallary-container > img:hover {
+  scale: 1.1;
+}

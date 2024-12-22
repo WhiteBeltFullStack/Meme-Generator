@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/CSS/style.css" />
+    <title>Canvas-Project</title>
+  </head>
+  <body onload="onInit()">
+    <header class="main-header">
+      <div class="logo">Meme Master</div>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="" onclick="onGallarySec(event)">Gallary</a></li>
+          <li><a href="" onclick="onEditorSec(event)">Editor</a></li>
+          <li><a href="" onclick="onSavedSec(event)">Saved</a></li>
+          <li><a href="" onclick="onRandomizeSec(event)">Randomize</a></li>
+        </ul>
+      </nav>
+    </header>
+    <section class="editor-section" hidden>
+      <h1>Meme-Editor</h1>
+      <main class="editor-container">
+        <div class="canvas-container">
+          <canvas height="450" width="450"></canvas>
+        </div>
+        <div class="actions-container">
+
+            <input type="text" data-trans="add-text" class="meme-input" placeholder="Add Text Here" oninput="onAddText(this.value)">
+
+          <label for="color-pick">
+            Color
+            <input
+              class="color-pick"
+              id="color-pick"
+              type="color"
+              onchange="onChangeColor(this.value)"
+            />
+          </label>
+          <label for="color-fill"
+            >Fill
+            <input
+              class="color-fill"
+              id="color-fill"
+              type="color"
+              onchange="onChangefillColor(this.value)"
+            />
+          </label>
+        </div>
+      </main>
+    </section>
+
+    <section class="search-section flex">
+      <div class="search-bar">
+        <input
+          type="text"
+          list="meme-list"
+          class="search-meme"
+          placeholder="Search"
+          oninput="onSearchMeme(this.value)"
+        />
+        <datalist id="meme-list">
+          <option value="Happy"></option>
+          <option value="Sad"></option>
+          <option value="Crazy"></option>
+          <option value="Sarcastic"></option>
+          <option value="Funny"></option>
+        </datalist>
+      </div>
+      <div class="key-words">
+        <ul class="no-style flex">
+          <li>Happy</li>
+          <li>Sad</li>
+          <li>Crazy</li>
+          <li>Sarcastic</li>
+          <li>Funny</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="gallary-section">
+      <div class="pagination">
+        <button class="btn btn-prev" onclick="onPageChange(-1)">prev</button>
+        <span class="page-num">1</span>
+        <button class="btn btn-next" onclick="onPageChange(1)">next</button>
+      </div>
+      <main class="gallary-container"></main>
+      <div class="pagination">
+        <button class="btn btn-prev" onclick="onPageChange(-1)">prev</button>
+        <span class="page-num-bottom">1</span>
+        <button class="btn btn-next" onclick="onPageChange(1)">next</button>
+      </div>
+    </section>
+
+    <section class="saved-section" hidden>
+      <main></main>
+    </section>
+
+    <footer class="main-footer">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>About Us</h3>
+          <p>Meme Master - let your creativity go CRAZY!</p>
+        </div>
+        <div class="footer-section">
+          <h3>Quick Links</h3>
+          <ul class="flex">
+            <li><a href="#" onclick="onGallarySec(event)">Gallery</a></li>
+            <li><a href="#" onclick="onEditorSec(event)">Editor</a></li>
+            <li><a href="#" onclick="onSavedSec(event)">Saved</a></li>
+            <li><a href="#" onclick="onRandomizeSec(event)">Randomize</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2024 Meme Master. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="JS/service/utils.js"></script>
+    <script src="JS/service/storage.js"></script>
+    <script src="JS/service/service.js"></script>
+
+    <script src="JS/gallary-controller.js"></script>
+    <script src="JS/editor-controller.js"></script>
+    <script src="JS/saved-controller.js"></script>
+
+    <script src="JS/navigation-handling.js"></script>
+  </body>
+</html>

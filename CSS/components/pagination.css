@@ -1,0 +1,35 @@
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+  margin: 20px 0;
+  font-family: 'Arial', sans-serif;
+}
+
+.pagination .btn {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.pagination .btn:hover {
+  background-color: #0056b3;
+}
+
+.pagination .btn:disabled {
+  background-color: #ccc; 
+  cursor: not-allowed;
+}
+
+.page-num {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}

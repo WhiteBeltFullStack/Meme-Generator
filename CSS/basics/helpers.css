@@ -1,0 +1,16 @@
+.grid {
+  display: grid;
+  grid-auto-flow: column;
+}
+
+.flex {
+  display: flex;
+}
+
+.no-style{
+   list-style: none;
+}
+
+.hidden{
+    display: none;
+}

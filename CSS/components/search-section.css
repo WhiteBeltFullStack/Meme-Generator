@@ -1,0 +1,25 @@
+.search-section {
+  justify-content: space-between;
+
+  align-items: center;
+  gap:30px;
+  padding-inline: 20px;
+}
+
+.key-words ul {
+  gap: 10px;
+}
+
+.key-words ul li{
+    cursor: pointer;
+    padding: 2px;
+    border: 1px solid lightgrey;
+    border-radius: 3px;
+}
+
+.key-words ul li:hover{
+    cursor: pointer;
+    padding: 2px;
+    border: 1px solid lightgrey;
+    border-radius: 3px;
+}
