@@ -105,6 +105,7 @@ function addLine() {
     font: 'Arial',
     align: 'center',
     isDrag: false,
+    
   }
   gMeme.lines.push(newLine)
   gMeme.selectedLineIdx = gMeme.lines.length - 1

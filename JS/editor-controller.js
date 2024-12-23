@@ -58,7 +58,11 @@ function renderMeme() {
 
     meme.lines.forEach((line, idx) => {
       const { txt, x, y, size, fill, color, font, align, isDrag } = line
-      drawText({ txt, x, y, size, fill, color, font, align }, idx)
+      drawText(
+        { txt, x, y, size, fill, color, font, align },
+        idx,
+        selectedLineIdx
+      )
     })
   }
 
@@ -106,7 +110,6 @@ function onDeleteLine() {
 function onSwitchLine(elSwitchLine) {
   switchLine(elSwitchLine)
 
-
   renderMeme()
 }
 
@@ -127,9 +130,7 @@ function renderTools() {
   elSelectFont.value = values.font
 }
 
-
-
-function drawText(params, idx) {
+function drawText(params, idx, selectedLineIdx) {
   gCtx.lineWidth = 0.5
   gCtx.strokeStyle = params.color
   gCtx.fillStyle = params.fill
@@ -137,18 +138,34 @@ function drawText(params, idx) {
   gCtx.textAlign = 'center'
   gCtx.textBaseLine = 'middle'
 
-  const textWidth = gCtx.measureText(params.txt)
-  const textHeight = params.size
+  const textMetrics = gCtx.measureText(params.txt)
+  const textWidth = textMetrics.width
+  const textHeight =
+    textMetrics.actualBoundingBoxAscent + textMetrics.actualBoundingBoxDescent
+  console.log('textHeight:', textHeight)
+
+  const padding = 15
 
   gCtx.fillText(params.txt, gElCanvas.width / 2, 40 * idx + TEXT_GAP) //x
   gCtx.strokeText(params.txt, gElCanvas.width / 2, 40 * idx + TEXT_GAP) //y
-
-
-  drawRect(gElCanvas.width / 2,40 * idx + TEXT_GAP,textWidth,textHeight) /*x, y, font-forY-size  , Length size ?*/
+  if (idx === selectedLineIdx) {
+    drawRect(
+      gElCanvas.width / 2 - textWidth / 2 - padding,
+      40 * idx + TEXT_GAP - textMetrics.actualBoundingBoxAscent - padding,
+      textWidth + 2 * padding,
+      textHeight + 2 * padding
+    )
+  }
 }
 
-function drawRect(x,y,textWidth,textHeight) {
-
+function drawRect(x, y, textWidth, textHeight) {
+  console.log('x:', x)
+  console.log('y:', y)
+  console.log('textWidth:', textWidth)
+  console.log('textHeight:', textHeight)
+  gCtx.lineWidth = 5
+  gCtx.strokeStyle = 'black'
+  gCtx.strokeRect(x, y, textWidth, textHeight)
 }
 
 function coverCanvasWithImg(imgSrc) {
