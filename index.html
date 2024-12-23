@@ -19,7 +19,7 @@
       </nav>
     </header>
 
-    <section class="editor-section "  hidden>
+    <section class="editor-section" hidden>
       <h1>Meme-Editor</h1>
       <main class="editor-container">
         <div class="canvas-container">
@@ -33,6 +33,21 @@
             placeholder="Add Text Here"
             oninput="onWriteText(this.value)"
           />
+          <div class="line-manage">
+            <button onclick="onAddLine()">Add</button>
+            <button onclick="onDeleteLine()">Delete</button>
+            <button onclick="onSwitchLine(1)">Line ↓</button>
+            <button onclick="onSwitchLine(-1)">Line ↑</button>
+          </div>
+          <label for="color-fill"
+            >Fill
+            <input
+              class="color-fill"
+              id="color-fill"
+              type="color"
+              oninput="onChangefillColor(this.value)"
+            />
+          </label>
 
           <label for="color-pick">
             Color
@@ -40,18 +55,44 @@
               class="color-pick"
               id="color-pick"
               type="color"
-              onchange="onChangeColor(this.value)"
+              oninput="onChangeColor(this.value)"
             />
           </label>
-          <label for="color-fill"
-            >Fill
+
+          <label for="font-size"
+            >Size
             <input
-              class="color-fill"
-              id="color-fill"
-              type="color"
-              onchange="onChangefillColor(this.value)"
+            class="font-size"
+              id="font-size"
+              type="range"
+              min="10"
+              max="70"
+              value="50"
+              step="1"
+              oninput="onChangeSize(this.value)"
             />
           </label>
+
+          <select class="select-font" onchange="onChangeFont(this.value)">
+            <option value="Arial">Select Font</option>
+            <option value="Arial">Arial</option>
+            <option value="Verdana">Verdana</option>
+            <option value="Courier New">Courier New</option>
+            <option value="Georgia">Georgia</option>
+            <option value="cursive">cursive</option>
+            <option value="fantasy">fantasy</option>
+          </select>
+
+          <div class="buttons-container flex space-around">
+            <button>Share</button>
+            <a
+              href="#"
+              class="btn"
+              onclick="onDownloadImg(this)"
+              download="my-img.jpg"
+              >Download</a
+            >
+          </div>
         </div>
       </main>
     </section>
@@ -74,7 +115,6 @@
         </datalist>
       </div>
       <div class="key-words">
-
         <ul class="no-style flex">
           <li>Happy</li>
           <li>Sad</li>

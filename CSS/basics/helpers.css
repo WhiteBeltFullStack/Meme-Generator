@@ -7,6 +7,10 @@
   display: flex;
 }
 
+.space-around{
+  justify-content: space-around;
+}
+
 .no-style{
    list-style: none;
 }

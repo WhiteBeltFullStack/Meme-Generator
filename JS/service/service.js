@@ -15,14 +15,15 @@ var gKeywordSearchCountMap = {
 var gMeme = {
   selectedImgId: null,
   selectedLineIdx: 0,
+
   lines: [
     {
       txt: 'I sometimes eat Falafel',
       x: 0,
       y: 0,
-      size: 20,
-      fill: 'red',
-      color: 'black',
+      size: 40,
+      fill: '#ff0000',
+      color: '#000000',
       font: 'Arial',
       align: 'center',
       isDrag: false,
@@ -75,9 +76,56 @@ function changeMemeText(elTxt) {
   }
 }
 
+function setFontColor(elColor) {
+  gMeme.lines[gMeme.selectedLineIdx].color = elColor
+}
+function setFillColor(elFillColor) {
+  gMeme.lines[gMeme.selectedLineIdx].fill = elFillColor
+}
+
+function setFont(elFont) {
+  gMeme.lines[gMeme.selectedLineIdx].font = elFont
+}
+
+function setSize(elSize) {
+  gMeme.lines[gMeme.selectedLineIdx].size = elSize
+}
 function getImgById(id) {
   const img = gImgs.find((img) => img.id === id)
   return img
+}
+function addLine() {
+  const newLine = {
+    txt: 'I sometimes eat Falafel',
+    x: 0,
+    y: 0,
+    size: 40,
+    fill: '#FF0000',
+    color: '#000000',
+    font: 'Arial',
+    align: 'center',
+    isDrag: false,
+  }
+  gMeme.lines.push(newLine)
+  gMeme.selectedLineIdx = gMeme.lines.length - 1
+}
+function deleteLine() {
+  gMeme.lines.splice(gMeme.selectedLineIdx, 1)
+}
+function switchLine(elSwitchLine) {
+  gMeme.selectedLineIdx += elSwitchLine
+  if (gMeme.selectedLineIdx < 0) {
+    gMeme.selectedLineIdx = gMeme.lines.length - 1
+  }
+  if (gMeme.selectedLineIdx > gMeme.lines.length - 1) {
+    gMeme.selectedLineIdx = 0
+  }
+}
+
+function currLineValues() {
+  const { txt, size, fill, color, font, align } =
+    gMeme.lines[gMeme.selectedLineIdx]
+  return { txt, size, fill, color, font, align }
 }
 
 function updateMeme(id) {

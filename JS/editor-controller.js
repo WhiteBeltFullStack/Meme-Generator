@@ -29,70 +29,136 @@ function onSelectImg(elImg, id) {
 }
 
 function renderMeme() {
-  const meme = getMeme();
+  const meme = getMeme()
 
-  // Check if there is no meme or no selected image
   if (!meme.selectedImgId) {
-    console.log('No image selected');
-    gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height); // Clear the canvas
-    gCtx.lineWidth = 1;
-    gCtx.strokeStyle = 'black';
-    gCtx.fillStyle = 'red';
-    gCtx.font = `40px Arial`;
-    gCtx.textAlign = 'center';
-    gCtx.textBaseline = 'middle';
+    gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
+    gCtx.lineWidth = 1
+    gCtx.strokeStyle = 'black'
+    gCtx.fillStyle = 'red'
+    gCtx.font = `40px Arial`
+    gCtx.textAlign = 'center'
+    gCtx.textBaseline = 'middle'
 
-    // Display the "No Img - No Meme" message
-    gCtx.fillText('No Img - No Meme', gElCanvas.width / 2, gElCanvas.height / 2);
-    gCtx.strokeText('No Img - No Meme', gElCanvas.width / 2, gElCanvas.height / 2);
+    gCtx.fillText(
+      'No Img - No Meme 4 You!',
+      gElCanvas.width / 2,
+      gElCanvas.height / 2
+    )
+    gCtx.strokeText(
+      'No Img - No Meme',
+      gElCanvas.width / 2,
+      gElCanvas.height / 2
+    )
   } else {
-    // Resize the canvas and draw the selected image
-    resizeCanvas();
-    const img = getImgById(meme.selectedImgId);
-    coverCanvasWithImg(img.url);
+    resizeCanvas()
+    const img = getImgById(meme.selectedImgId)
+    const { selectedLineIdx } = meme
+    coverCanvasWithImg(img.url)
 
-    // Render text lines
     meme.lines.forEach((line, idx) => {
-      const { txt, x, y, size, fill, color, font, align, isDrag } = line;
-      drawText({ txt, x, y, size, fill, color, font, align }, idx);
-    });
+      const { txt, x, y, size, fill, color, font, align, isDrag } = line
+      drawText({ txt, x, y, size, fill, color, font, align }, idx)
+    })
   }
+
+  renderTools()
 }
 
+function drawRect(x, y) {
+  gCtx.strokeStyle = 'black'
+  gCtx.strokeRect(x, y, 40, 120)
+}
 
 function onWriteText(elTxt) {
   changeMemeText(elTxt)
+  renderMeme()
+}
+
+function onChangeColor(elColor) {
+  setFontColor(elColor)
+  renderMeme()
+}
+function onChangefillColor(elFillColor) {
+  setFillColor(elFillColor)
+  renderMeme()
+}
+
+function onChangeFont(elFont) {
+  setFont(elFont)
+  renderMeme()
+}
+
+function onChangeSize(elSize) {
+  setSize(elSize)
+  renderMeme()
+}
+
+function onAddLine() {
+  addLine()
+  renderMeme()
+}
+
+function onDeleteLine() {
+  deleteLine()
+  renderMeme()
+}
+function onSwitchLine(elSwitchLine) {
+  switchLine(elSwitchLine)
+
 
   renderMeme()
 }
 
-function drawRect(){
-  
+function renderTools() {
+  const elActionsContainer = document.querySelector('.actions-container')
+  const values = currLineValues()
+
+  const elMemeInput = elActionsContainer.querySelector('.meme-input')
+  const elColorFill = elActionsContainer.querySelector('.color-fill')
+  const elColorPick = elActionsContainer.querySelector('.color-pick')
+  const elFontSize = elActionsContainer.querySelector('.font-size')
+  const elSelectFont = elActionsContainer.querySelector('.select-font')
+
+  elMemeInput.value = values.txt
+  elColorFill.value = values.fill
+  elColorPick.value = values.color
+  elFontSize.value = values.size
+  elSelectFont.value = values.font
 }
 
+
+
 function drawText(params, idx) {
-  gCtx.lineWidth = 1
-  gCtx.strokeStyle = 'black'
-  gCtx.fillStyle = 'red'
-  gCtx.font = `40px Ariel`
+  gCtx.lineWidth = 0.5
+  gCtx.strokeStyle = params.color
+  gCtx.fillStyle = params.fill
+  gCtx.font = `${params.size}px ${params.font}`
   gCtx.textAlign = 'center'
   gCtx.textBaseLine = 'middle'
 
+  const textWidth = gCtx.measureText(params.txt)
+  const textHeight = params.size
+
   gCtx.fillText(params.txt, gElCanvas.width / 2, 40 * idx + TEXT_GAP) //x
   gCtx.strokeText(params.txt, gElCanvas.width / 2, 40 * idx + TEXT_GAP) //y
+
+
+  drawRect(gElCanvas.width / 2,40 * idx + TEXT_GAP,textWidth,textHeight) /*x, y, font-forY-size  , Length size ?*/
+}
+
+function drawRect(x,y,textWidth,textHeight) {
+
 }
 
 function coverCanvasWithImg(imgSrc) {
-  if(!imgSrc) return
+  if (!imgSrc) return
   const elImg = new Image()
   elImg.src = imgSrc
   gElCanvas.height =
     (elImg.naturalHeight / elImg.naturalWidth) * gElCanvas.width
   gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
 }
-
-
-
 
 function resizeCanvas() {
   const elContainer = document.querySelector('.canvas-container')
