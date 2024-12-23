@@ -49,3 +49,36 @@
 .main-nav ul li {
   list-style: none;
 }
+
+
+.main-header {
+
+  display: grid;
+  grid-template-columns: minmax(20px, 1fr) minmax(auto, 980px) minmax(20px, 1fr);
+
+  grid-auto-flow: column;
+
+  background-color: black;
+
+
+  background-color: lightgrey;
+  padding: 10px;
+}
+
+.logo {
+  grid-column: 2;
+  grid-row: 1;
+
+  place-self: center start;
+}
+
+.main-nav {
+  display: grid;
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.main-nav ul {
+  display: flex;
+  justify-content: end;
+}

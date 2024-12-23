@@ -6,8 +6,8 @@
     <link rel="stylesheet" href="CSS/style.css" />
     <title>Canvas-Project</title>
   </head>
-  <body onload="onInit()">
-    <header class="main-header">
+  <body onload="onInit()" class="main-layout">
+    <header class="main-header full">
       <div class="logo">Meme Master</div>
       <nav class="main-nav">
         <ul>
@@ -18,11 +18,12 @@
         </ul>
       </nav>
     </header>
-    <section class="editor-section" hidden>
+
+    <section class="editor-section "  hidden>
       <h1>Meme-Editor</h1>
       <main class="editor-container">
         <div class="canvas-container">
-          <canvas height="450" width="450"></canvas>
+          <canvas height="600" width="600"></canvas>
         </div>
         <div class="actions-container">
           <input
@@ -102,7 +103,7 @@
       <main></main>
     </section>
 
-    <footer class="main-footer">
+    <footer class="main-footer full">
       <div class="footer-content">
         <div class="footer-section">
           <h3>About Us</h3>

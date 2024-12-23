@@ -3,8 +3,11 @@
 }
 
 .editor-section {
+
+
   width: 80vw;
 
   margin-inline: auto;
   padding: 20px;
+  border: 1px solid lightgrey;
 }
