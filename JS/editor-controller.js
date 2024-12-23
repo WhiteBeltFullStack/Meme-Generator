@@ -69,10 +69,7 @@ function renderMeme() {
   renderTools()
 }
 
-function drawRect(x, y) {
-  gCtx.strokeStyle = 'black'
-  gCtx.strokeRect(x, y, 40, 120)
-}
+
 
 function onWriteText(elTxt) {
   changeMemeText(elTxt)
@@ -159,10 +156,7 @@ function drawText(params, idx, selectedLineIdx) {
 }
 
 function drawRect(x, y, textWidth, textHeight) {
-  console.log('x:', x)
-  console.log('y:', y)
-  console.log('textWidth:', textWidth)
-  console.log('textHeight:', textHeight)
+
   gCtx.lineWidth = 5
   gCtx.strokeStyle = 'black'
   gCtx.strokeRect(x, y, textWidth, textHeight)
