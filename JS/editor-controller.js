@@ -30,6 +30,7 @@ function onSelectImg(elImg, id) {
 
 function renderMeme() {
   const meme = getMeme()
+  console.log('meme:', meme)
 
   if (!meme.selectedImgId) {
     gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
@@ -53,23 +54,21 @@ function renderMeme() {
   } else {
     resizeCanvas()
     const img = getImgById(meme.selectedImgId)
-    const { selectedLineIdx } = meme
-    coverCanvasWithImg(img.url)
+    
+    coverCanvasWithImg(img.url,meme)
 
-    meme.lines.forEach((line, idx) => {
-      const { txt, x, y, size, fill, color, font, align, isDrag } = line
-      drawText(
-        { txt, x, y, size, fill, color, font, align },
-        idx,
-        selectedLineIdx
-      )
-    })
+    // meme.lines.forEach((line, idx) => {
+    //   const { txt, x, y, size, fill, color, font, align, isDrag } = line
+    //   drawText(
+    //     { txt, x, y, size, fill, color, font, align },
+    //     idx,
+    //     selectedLineIdx
+    //   )
+    // })
   }
 
   renderTools()
 }
-
-
 
 function onWriteText(elTxt) {
   changeMemeText(elTxt)
@@ -145,6 +144,8 @@ function drawText(params, idx, selectedLineIdx) {
 
   gCtx.fillText(params.txt, gElCanvas.width / 2, 40 * idx + TEXT_GAP) //x
   gCtx.strokeText(params.txt, gElCanvas.width / 2, 40 * idx + TEXT_GAP) //y
+
+  
   if (idx === selectedLineIdx) {
     drawRect(
       gElCanvas.width / 2 - textWidth / 2 - padding,
@@ -156,19 +157,37 @@ function drawText(params, idx, selectedLineIdx) {
 }
 
 function drawRect(x, y, textWidth, textHeight) {
-
   gCtx.lineWidth = 5
   gCtx.strokeStyle = 'black'
   gCtx.strokeRect(x, y, textWidth, textHeight)
 }
 
-function coverCanvasWithImg(imgSrc) {
+function coverCanvasWithImg(imgSrc,meme) {
   if (!imgSrc) return
   const elImg = new Image()
   elImg.src = imgSrc
-  gElCanvas.height =
-    (elImg.naturalHeight / elImg.naturalWidth) * gElCanvas.width
-  gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
+
+  elImg.onload = () => {
+    gElCanvas.height =
+      (elImg.naturalHeight / elImg.naturalWidth) * gElCanvas.width
+    gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
+    
+    const { selectedLineIdx } = meme
+
+    meme.lines.forEach((line, idx) => {
+      const { txt, x, y, size, fill, color, font, align, isDrag } = line
+      drawText(
+        { txt, x, y, size, fill, color, font, align },
+        idx,
+        selectedLineIdx
+      
+      )
+    })
+  }
+
+  // gElCanvas.height =
+  //   (elImg.naturalHeight / elImg.naturalWidth) * gElCanvas.width
+  // gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
 }
 
 function resizeCanvas() {
