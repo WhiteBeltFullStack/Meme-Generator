@@ -82,3 +82,8 @@
   display: flex;
   justify-content: end;
 }
+
+.main-header .nav-button{
+  display: none;
+  position: absolute;
+}

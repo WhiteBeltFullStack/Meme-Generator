@@ -7,6 +7,9 @@
     <title>Canvas-Project</title>
   </head>
   <body onload="onInit()" class="main-layout">
+
+    <div class="main-screen" onclick="onToggleMenu()"></div>
+    
     <header class="main-header full">
       <div class="logo">Meme Master</div>
       <nav class="main-nav">
@@ -17,6 +20,7 @@
           <li><a href="" onclick="onRandomizeSec(event)">Randomize</a></li>
         </ul>
       </nav>
+      <button class="nav-button" onclick="onToggleMenu()">☰</button>
     </header>
 
     <section class="editor-section" hidden>
@@ -62,7 +66,7 @@
           <label for="font-size"
             >Size
             <input
-            class="font-size"
+              class="font-size"
               id="font-size"
               type="range"
               min="10"
@@ -84,12 +88,14 @@
           </select>
 
           <div class="buttons-container flex space-around">
-            <button>Share</button>
+            <button class="btn-facebook" onclick="onShareImg(event)">
+              Share
+            </button>
             <a
               href="#"
               class="btn"
               onclick="onDownloadImg(this)"
-              download="my-img.jpg"
+              download="my-meme.jpg"
               >Download</a
             >
           </div>
@@ -165,6 +171,7 @@
     </footer>
 
     <script src="JS/service/utils.js"></script>
+    <script src="JS/service/upload.service.js"></script>
     <script src="JS/service/storage.js"></script>
     <script src="JS/service/service.js"></script>
 

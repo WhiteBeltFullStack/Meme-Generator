@@ -1,7 +1,9 @@
 'use strict'
 
+var gInside = false
 var gImgs = []
 var gImagesLength
+var gCoreRectParams
 
 _createImgs()
 var gKeywordSearchCountMap = {
@@ -105,13 +107,14 @@ function addLine() {
     font: 'Arial',
     align: 'center',
     isDrag: false,
-    
   }
   gMeme.lines.push(newLine)
   gMeme.selectedLineIdx = gMeme.lines.length - 1
 }
 function deleteLine() {
+  if (!gMeme.lines.length) return
   gMeme.lines.splice(gMeme.selectedLineIdx, 1)
+  gMeme.selectedLineIdx = gMeme.lines.length - 1
 }
 function switchLine(elSwitchLine) {
   gMeme.selectedLineIdx += elSwitchLine
@@ -136,4 +139,57 @@ function updateMeme(id) {
 
 function imgsLength() {
   return gImagesLength
+}
+
+function getRectParams(rectParams) {
+  // gCoreRectParams = rectParams
+  gMeme.lines[gMeme.selectedLineIdx].rectParams = rectParams
+}
+
+function isMouseOnText(mouseOverPos){
+  return gMeme.lines.some((line, idx) => {
+    const { x, y, textWidth, textHeight } = line.rectParams
+
+    if (
+      mouseOverPos.x >= x &&
+      mouseOverPos.x <= x + textWidth &&
+      mouseOverPos.y >= y &&
+      mouseOverPos.y <= y + textHeight
+    ) {
+      gMeme.selectedLineIdx = idx
+      return true
+    }
+    return false
+  })
+}
+
+function isTextClicked(clickedPos) {
+  return gMeme.lines.some((line, idx) => {
+    const { x, y, textWidth, textHeight } = line.rectParams
+
+    if (
+      clickedPos.x >= x &&
+      clickedPos.x <= x + textWidth &&
+      clickedPos.y >= y &&
+      clickedPos.y <= y + textHeight
+    ) {
+      gMeme.selectedLineIdx = idx
+      return true
+    }
+    return false
+  })
+}
+
+function setTextDrag(isDrag) {
+  gMeme.lines[gMeme.selectedLineIdx].isDrag = isDrag
+}
+
+function checkDragged() {
+  return gMeme.lines[gMeme.selectedLineIdx].isDrag
+}
+
+function moveText(dx, dy) {
+  gMeme.lines[gMeme.selectedLineIdx].x += dx
+  gMeme.lines[gMeme.selectedLineIdx].y += dy
+
 }

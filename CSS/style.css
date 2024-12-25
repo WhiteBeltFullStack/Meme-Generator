@@ -8,6 +8,8 @@
 @import 'basics/layout.css';
 
 /* COMPONENTS */
+@import 'components/main-screen.css';
+
 @import 'components/search-section.css';
 
 @import 'components/header.css';

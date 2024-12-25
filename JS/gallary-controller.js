@@ -6,6 +6,7 @@ var gQueryOptions = {
 }
 
 function onInit() {
+  
   renderGallary()
 }
 
@@ -36,11 +37,8 @@ function onPageChange(diff) {
   const elPage = document.querySelector('.page-num')
   const elPageBottom = document.querySelector('.page-num-bottom')
   const length = imgsLength()
-  console.log('length:',length)
 
   var maxPageNum = Math.ceil(length / gQueryOptions.page.size)
-  console.log(maxPageNum);
-  
 
   gQueryOptions.page.idx = gQueryOptions.page.idx + diff
 

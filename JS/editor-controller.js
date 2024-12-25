@@ -2,15 +2,24 @@
 var gElCanvas
 var gCtx
 
+var gStartPos
+
+var rectParams = {}
+
 const TEXT_GAP = 50
 
 var gCurrImgObj
 var gCurrImg
 
+const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
+
 renderCanvas()
 function renderCanvas() {
   gElCanvas = document.querySelector('canvas')
   gCtx = gElCanvas.getContext('2d')
+
+  addListeners()
+  renderMeme()
 
   window.addEventListener('resize', () => {
     renderMeme()
@@ -30,7 +39,7 @@ function onSelectImg(elImg, id) {
 
 function renderMeme() {
   const meme = getMeme()
-  console.log('meme:', meme)
+  gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
 
   if (!meme.selectedImgId) {
     gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
@@ -47,27 +56,90 @@ function renderMeme() {
       gElCanvas.height / 2
     )
     gCtx.strokeText(
-      'No Img - No Meme',
+      'No Img - No Meme 4 You!',
       gElCanvas.width / 2,
       gElCanvas.height / 2
     )
   } else {
     resizeCanvas()
+    setInitialTextPositions()
     const img = getImgById(meme.selectedImgId)
-    
-    coverCanvasWithImg(img.url,meme)
 
-    // meme.lines.forEach((line, idx) => {
-    //   const { txt, x, y, size, fill, color, font, align, isDrag } = line
-    //   drawText(
-    //     { txt, x, y, size, fill, color, font, align },
-    //     idx,
-    //     selectedLineIdx
-    //   )
-    // })
+    coverCanvasWithImg(img.url, meme)
   }
 
   renderTools()
+}
+
+function addListeners() {
+  addMouseListeners()
+  addTouchListeners()
+}
+
+function addMouseListeners() {
+  gElCanvas.addEventListener('mousedown', onDown)
+  gElCanvas.addEventListener('mousemove', onMove)
+  gElCanvas.addEventListener('mouseup', onUp)
+  gElCanvas.addEventListener('mousemove', onMouseMove)
+}
+
+function addTouchListeners() {
+  gElCanvas.addEventListener('touchstart', onDown)
+  gElCanvas.addEventListener('touchmove', onMove)
+  gElCanvas.addEventListener('touchend', onUp)
+}
+
+function onMouseMove(ev) {
+  const pos = getEvPos(ev)
+  if (isMouseOnText(pos)) {
+    document.body.style.cursor = 'grab'
+  } else {
+    document.body.style.cursor = 'default'
+  }
+}
+
+function onDown(ev) {
+  const pos = getEvPos(ev)
+  if (isTextClicked(pos)) {
+    setTextDrag(true)
+    gStartPos = pos
+    document.body.style.cursor = 'grabbing'
+    onMouseMove(ev)
+  } else {
+    return
+  }
+}
+
+function onMove(ev) {
+  if (!checkDragged()) return
+  const pos = getEvPos(ev)
+  const dx = pos.x - gStartPos.x
+  const dy = pos.y - gStartPos.y
+  moveText(dx, dy)
+  gStartPos = pos
+  renderMeme()
+}
+
+function onUp() {
+  setTextDrag(false)
+  document.body.style.cursor = 'grab'
+}
+
+function getEvPos(ev) {
+  let pos = {
+    x: ev.offsetX,
+    y: ev.offsetY,
+  }
+
+  if (TOUCH_EVS.includes(ev.type)) {
+    ev.preventDefault()
+    ev = ev.changedTouches[0]
+    pos = {
+      x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+      y: ev.pageY - ev.target.offsetTop - ev.target.clientTop,
+    }
+  }
+  return pos
 }
 
 function onWriteText(elTxt) {
@@ -138,60 +210,86 @@ function drawText(params, idx, selectedLineIdx) {
   const textWidth = textMetrics.width
   const textHeight =
     textMetrics.actualBoundingBoxAscent + textMetrics.actualBoundingBoxDescent
-  console.log('textHeight:', textHeight)
 
-  const padding = 15
+  const padding = 10
 
-  gCtx.fillText(params.txt, gElCanvas.width / 2, 40 * idx + TEXT_GAP) //x
-  gCtx.strokeText(params.txt, gElCanvas.width / 2, 40 * idx + TEXT_GAP) //y
+  gCtx.fillText(params.txt, params.x, params.y)
+  gCtx.strokeText(params.txt, params.x, params.y)
 
-  
   if (idx === selectedLineIdx) {
-    drawRect(
-      gElCanvas.width / 2 - textWidth / 2 - padding,
-      40 * idx + TEXT_GAP - textMetrics.actualBoundingBoxAscent - padding,
-      textWidth + 2 * padding,
-      textHeight + 2 * padding
-    )
+    const x = params.x - textWidth / 2 - padding
+    const y = params.y - textMetrics.actualBoundingBoxAscent - padding
+    const rectWidth = textWidth + 2 * padding
+    const rectHeight = textHeight + 2 * padding
+
+    gCtx.lineWidth = 5
+    gCtx.strokeStyle = 'black'
+    gCtx.strokeRect(x, y, rectWidth, rectHeight)
+
+    getRectParams({ x, y, textWidth, textHeight })
+
+    // drawRect(
+    //   gElCanvas.width / 2 - textWidth / 2 - padding,
+    //   40 * idx + TEXT_GAP - textMetrics.actualBoundingBoxAscent - padding,
+    //   textWidth + 2 * padding,
+    //   textHeight + 2 * padding
+    // )
   }
 }
 
-function drawRect(x, y, textWidth, textHeight) {
-  gCtx.lineWidth = 5
-  gCtx.strokeStyle = 'black'
-  gCtx.strokeRect(x, y, textWidth, textHeight)
-}
+// function drawRect(x, y, textWidth, textHeight) {
+//   gCtx.lineWidth = 5
+//   gCtx.strokeStyle = 'black'
+//   gCtx.strokeRect(x, y, textWidth, textHeight)
 
-function coverCanvasWithImg(imgSrc,meme) {
+//   getRectParams({ x, y, textWidth, textHeight })
+// }
+
+function coverCanvasWithImg(imgSrc, meme) {
   if (!imgSrc) return
   const elImg = new Image()
   elImg.src = imgSrc
 
-  elImg.onload = () => {
-    gElCanvas.height =
-      (elImg.naturalHeight / elImg.naturalWidth) * gElCanvas.width
-    gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
-    
-    const { selectedLineIdx } = meme
+  gElCanvas.height =
+    (elImg.naturalHeight / elImg.naturalWidth) * gElCanvas.width
+  gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
 
-    meme.lines.forEach((line, idx) => {
-      const { txt, x, y, size, fill, color, font, align, isDrag } = line
-      drawText(
-        { txt, x, y, size, fill, color, font, align },
-        idx,
-        selectedLineIdx
-      
-      )
-    })
-  }
+  const { selectedLineIdx } = meme
 
-  // gElCanvas.height =
-  //   (elImg.naturalHeight / elImg.naturalWidth) * gElCanvas.width
-  // gCtx.drawImage(elImg, 0, 0, gElCanvas.width, gElCanvas.height)
+  meme.lines.forEach((line, idx) => {
+    // if (!line.isDrag) {
+    //   line.x = gElCanvas.width / 2
+    //   line.y = 40 * idx + TEXT_GAP
+    // }
+
+    let { txt, x, y, size, fill, color, font, align, isDrag } = line
+    drawText(
+      { txt, x, y, size, fill, color, font, align },
+      idx,
+      selectedLineIdx
+    )
+  })
+}
+
+function setInitialTextPositions() {
+  const meme = getMeme()
+
+  meme.lines.forEach((line, idx) => {
+    if (!line.initialized) {
+      line.x = gElCanvas.width / 2
+      line.y = 40 * idx + TEXT_GAP
+      line.initialized = true
+    }
+  })
 }
 
 function resizeCanvas() {
   const elContainer = document.querySelector('.canvas-container')
   gElCanvas.width = elContainer.clientWidth - 2
   gElCanvas.height = elContainer.clientHeight - 2
+}
+
+function onDownloadImg(elLink) {
+  const imgContent = gElCanvas.toDataURL('image/jpeg')
+  elLink.href = imgContent
 }

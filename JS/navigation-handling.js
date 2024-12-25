@@ -44,3 +44,8 @@ function onRandomizeSec(ev) {
   // const elGallary = document.querySelector('.gallary-section')
   // const elSaved = document.querySelector('.saved-section')
 }
+
+
+function onToggleMenu(){
+  document.body.classList.toggle('menu-open')
+}
