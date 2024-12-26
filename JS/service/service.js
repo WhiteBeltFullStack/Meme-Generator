@@ -7,11 +7,11 @@ var gCoreRectParams
 
 _createImgs()
 var gKeywordSearchCountMap = {
-  funny: 12,
-  sad: 16,
-  happy: 2,
-  crazy: 3,
-  sarcastic: 3,
+  funny: 0,
+  sad: 0,
+  happy: 0,
+  crazy: 0,
+  sarcastic: 0,
 }
 
 var gMeme = {
@@ -31,6 +31,10 @@ var gMeme = {
       isDrag: false,
     },
   ],
+}
+
+function getWords() {
+  return gKeywordSearchCountMap
 }
 
 function getMeme() {
@@ -100,7 +104,7 @@ function getImgById(id) {
 }
 function addLine() {
   const newLine = {
-    txt: 'I sometimes eat Falafel',
+    txt: 'Enter Text Here',
     x: 0,
     y: 0,
     size: 40,
@@ -149,7 +153,7 @@ function getRectParams(rectParams) {
 }
 
 function isMouseOnText(mouseOverPos) {
-  if(!gMeme.selectedImgId) return
+  if (!gMeme.selectedImgId) return
   return gMeme.lines.some((line, idx) => {
     const { x, y, textWidth, textHeight } = line.rectParams
 
@@ -166,7 +170,7 @@ function isMouseOnText(mouseOverPos) {
 }
 
 function isTextClicked(clickedPos) {
-  if(!gMeme.selectedImgId) return
+  if (!gMeme.selectedImgId) return
   return gMeme.lines.some((line, idx) => {
     const { x, y, textWidth, textHeight } = line.rectParams
 
@@ -196,3 +200,10 @@ function moveText(dx, dy) {
   gMeme.lines[gMeme.selectedLineIdx].x += dx
   gMeme.lines[gMeme.selectedLineIdx].y += dy
 }
+
+function wordClicked(elWord) {
+   (!gKeywordSearchCountMap[elWord]) ? gKeywordSearchCountMap[elWord] = 1 : gKeywordSearchCountMap[elWord]++
+   console.log('elWord:', gKeywordSearchCountMap[elWord])
+  
+  }
+

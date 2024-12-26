@@ -6,7 +6,6 @@ var gQueryOptions = {
 }
 
 function onInit() {
-  
   renderGallary()
 }
 
@@ -55,6 +54,20 @@ function onPageChange(diff) {
 
 
 
-function onSearchedWordCount(elWord){
 
+function onSearchedWordCount(elWord) {
+  const wordValue =elWord.dataset.value
+  wordClicked(wordValue)
+  const searchWords = getWords()
+const elSearchFilter = document.querySelector('.search-meme')  
+
+  gQueryOptions.filterBy.txt = wordValue
+  elSearchFilter.value = wordValue
+  elWord.style.fontSize = ((searchWords[wordValue] *0.2)+1) + 'em'
+
+  
+
+  renderGallary()
+  
+  
 }

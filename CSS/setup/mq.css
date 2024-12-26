@@ -98,9 +98,7 @@
           );
       } */
 
-  body {
-    /* background-color: rgb(128, 115, 0); */
-  }
+ 
 }
 
 @media (min-width: 1000px) {
@@ -112,7 +110,5 @@
         );
     } */
 
-  body {
-    /* background-color: rgb(128, 19, 0); */
-  }
+ 
 }

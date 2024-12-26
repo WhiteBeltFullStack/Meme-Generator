@@ -1,5 +1,6 @@
 .search-section {
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  position: relative;
 
   align-items: center;
   gap: 30px;
@@ -7,6 +8,9 @@
   margin-block-start: 20px;
 }
 
+.key-words {
+  margin-inline: auto;
+}
 .key-words ul {
   gap: 10px;
 }
@@ -14,15 +18,14 @@
 .key-words ul li {
   cursor: pointer;
   padding: 2px;
-  border: 1px solid lightgrey;
   border-radius: 3px;
   user-select: none;
+  text-align: center;
 }
 
 .key-words ul li:hover {
   cursor: pointer;
   padding: 2px;
-  border: 1px solid rgb(124, 120, 120);
   border-radius: 3px;
 }
 
