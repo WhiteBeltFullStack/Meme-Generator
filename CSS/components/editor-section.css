@@ -1,5 +1,6 @@
 .editor-section h1 {
   text-align: center;
+  user-select: none;
 }
 
 .editor-section {

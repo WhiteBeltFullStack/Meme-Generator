@@ -146,17 +146,16 @@ function getRectParams(rectParams) {
   gMeme.lines[gMeme.selectedLineIdx].rectParams = rectParams
 }
 
-function isMouseOnText(mouseOverPos){
+function isMouseOnText(mouseOverPos) {
   return gMeme.lines.some((line, idx) => {
     const { x, y, textWidth, textHeight } = line.rectParams
 
     if (
       mouseOverPos.x >= x &&
-      mouseOverPos.x <= x + textWidth &&
+      mouseOverPos.x <= x + textWidth + 20 &&
       mouseOverPos.y >= y &&
-      mouseOverPos.y <= y + textHeight
+      mouseOverPos.y <= y + textHeight + 20
     ) {
-      gMeme.selectedLineIdx = idx
       return true
     }
     return false
@@ -169,11 +168,12 @@ function isTextClicked(clickedPos) {
 
     if (
       clickedPos.x >= x &&
-      clickedPos.x <= x + textWidth &&
+      clickedPos.x <= x + textWidth + 20 &&
       clickedPos.y >= y &&
-      clickedPos.y <= y + textHeight
+      clickedPos.y <= y + textHeight + 20
     ) {
       gMeme.selectedLineIdx = idx
+
       return true
     }
     return false
@@ -191,5 +191,4 @@ function checkDragged() {
 function moveText(dx, dy) {
   gMeme.lines[gMeme.selectedLineIdx].x += dx
   gMeme.lines[gMeme.selectedLineIdx].y += dy
-
 }
