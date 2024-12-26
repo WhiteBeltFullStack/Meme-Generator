@@ -20,7 +20,7 @@ var gMeme = {
 
   lines: [
     {
-      txt: 'I sometimes eat Falafel',
+      txt: 'Enter Text Here',
       x: 0,
       y: 0,
       size: 40,
@@ -71,11 +71,13 @@ function _createImg(idx) {
 }
 
 function changeMemeText(elTxt) {
-  if (elTxt.length === 0) {
-    gMeme.lines[gMeme.selectedLineIdx].txt = 'Enter Text Here'
-  } else {
-    gMeme.lines[gMeme.selectedLineIdx].txt = elTxt
-  }
+  gMeme.lines[gMeme.selectedLineIdx].txt = elTxt
+
+  // if (elTxt.length === 0) {
+  //   gMeme.lines[gMeme.selectedLineIdx].txt = 'Enter Text Here'
+  // } else {
+  //   gMeme.lines[gMeme.selectedLineIdx].txt = elTxt
+  // }
 }
 
 function setFontColor(elColor) {
@@ -147,6 +149,7 @@ function getRectParams(rectParams) {
 }
 
 function isMouseOnText(mouseOverPos) {
+  if(!gMeme.selectedImgId) return
   return gMeme.lines.some((line, idx) => {
     const { x, y, textWidth, textHeight } = line.rectParams
 
@@ -163,6 +166,7 @@ function isMouseOnText(mouseOverPos) {
 }
 
 function isTextClicked(clickedPos) {
+  if(!gMeme.selectedImgId) return
   return gMeme.lines.some((line, idx) => {
     const { x, y, textWidth, textHeight } = line.rectParams
 

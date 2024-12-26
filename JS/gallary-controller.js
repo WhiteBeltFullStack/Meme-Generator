@@ -52,3 +52,9 @@ function onPageChange(diff) {
   elPageBottom.innerText = gQueryOptions.page.idx + 1
   renderGallary()
 }
+
+
+
+function onSearchedWordCount(elWord){
+
+}

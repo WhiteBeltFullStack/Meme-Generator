@@ -40,6 +40,7 @@ function onSelectImg(elImg, id) {
 function renderMeme() {
   const meme = getMeme()
   gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
+  if(!meme.lines.length) return
 
   if (!meme.selectedImgId) {
     gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
@@ -199,6 +200,7 @@ function renderTools() {
 }
 
 function drawText(params, idx, selectedLineIdx) {
+  if(!params.txt) return
   gCtx.lineWidth = 0.5
   gCtx.strokeStyle = params.color
   gCtx.fillStyle = params.fill

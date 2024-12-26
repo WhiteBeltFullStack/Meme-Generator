@@ -16,8 +16,8 @@
         <ul>
           <li><a href="" onclick="onGallarySec(event)">Gallary</a></li>
           <li><a href="" onclick="onEditorSec(event)">Editor</a></li>
-          <li><a href="" onclick="onSavedSec(event)">Saved</a></li>
-          <li><a href="" onclick="onRandomizeSec(event)">Randomize</a></li>
+          <!-- <li><a href="" onclick="onSavedSec(event)">Saved</a></li> -->
+          <!-- <li><a href="" onclick="onRandomizeSec(event)">Randomize</a></li> -->
         </ul>
       </nav>
       <button class="nav-button" onclick="onToggleMenu()">☰</button>
@@ -122,11 +122,11 @@
       </div>
       <div class="key-words">
         <ul class="no-style flex">
-          <li>Happy</li>
-          <li>Sad</li>
-          <li>Crazy</li>
-          <li>Sarcastic</li>
-          <li>Funny</li>
+          <li onclick="onSearchedWordCount(this)" value="happy">Happy</li>
+          <li onclick="onSearchedWordCount(this)" value="sad">Sad</li>
+          <li onclick="onSearchedWordCount(this)" value="crazy">Crazy</li>
+          <li onclick="onSearchedWordCount(this)" value="sarcastic">Sarcastic</li>
+          <li onclick="onSearchedWordCount(this)" value="funny">Funny</li>
         </ul>
       </div>
     </section>
