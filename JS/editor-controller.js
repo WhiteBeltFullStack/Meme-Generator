@@ -294,3 +294,10 @@ function onPlaceEmoji(elEmoji) {
   drawEmoji(elEmoji)
   renderMeme()
 }
+
+function onShareImg() {
+  const imgContent = gElCanvas.toDataURL('image/jpeg')
+  const encodedImgContent = encodeURIComponent(imgContent)
+  const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedImgContent}&t=${encodedImgContent}`
+  window.open(shareUrl, '_blank')
+}
