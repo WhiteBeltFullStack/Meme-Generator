@@ -202,8 +202,23 @@ function moveText(dx, dy) {
 }
 
 function wordClicked(elWord) {
-   (!gKeywordSearchCountMap[elWord]) ? gKeywordSearchCountMap[elWord] = 1 : gKeywordSearchCountMap[elWord]++
-   console.log('elWord:', gKeywordSearchCountMap[elWord])
-  
-  }
+  !gKeywordSearchCountMap[elWord]
+    ? (gKeywordSearchCountMap[elWord] = 1)
+    : gKeywordSearchCountMap[elWord]++
+  console.log('elWord:', gKeywordSearchCountMap[elWord])
+}
 
+function drawEmoji(elEmoji) {
+  const emojiDraw = {
+    txt: `${elEmoji}`,
+    x: 0,
+    y: 0,
+    size: 40,
+    fill: '#ff0000',
+    color: '#000000',
+    font: 'Arial',
+    align: 'center',
+    isDrag: false,
+  }
+  gMeme.lines.unshift(emojiDraw)
+}

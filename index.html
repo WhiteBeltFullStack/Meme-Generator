@@ -7,9 +7,8 @@
     <title>Canvas-Project</title>
   </head>
   <body onload="onInit()" class="main-layout">
-
     <div class="main-screen" onclick="onToggleMenu()"></div>
-    
+
     <header class="main-header full">
       <div class="logo">Meme Master</div>
       <nav class="main-nav">
@@ -99,6 +98,27 @@
               >Download</a
             >
           </div>
+          <div class="emoji-container flex center">
+            <button class="btn-left" onclick="onMoveLeft()">👈🏼</button>
+            <div class="emoji-carousel">
+              <span onclick="onPlaceEmoji(this.dataset.value)" data-value="🤪">🤪</span>
+              <span onclick="onPlaceEmoji(this.dataset.value)" data-value="😜">😜</span>
+              <span onclick="onPlaceEmoji(this.dataset.value)" data-value="😝">😝</span>
+              <span onclick="onPlaceEmoji(this.dataset.value)" data-value="🤭">🤭</span>
+              <span onclick="onPlaceEmoji(this.dataset.value)" data-value="🙃">🙃</span>
+              <span onclick="onPlaceEmoji(this.dataset.value)" data-value="😛">😛</span>
+              <span onclick="onPlaceEmoji(this.dataset.value)" data-value="🤣">🤣</span>
+              <span onclick="onPlaceEmoji(this.dataset.value)" data-value="🥴">🥴</span>
+              <span onclick="onPlaceEmoji(this.dataset.value)" data-value="🥳">🥳</span>
+              <span onclick="onPlaceEmoji(this.dataset.value)" data-value="🤡">🤡</span>
+              <span onclick="onPlaceEmoji(this.dataset.value)" data-value="😵‍💫">😵‍💫</span>
+              <span onclick="onPlaceEmoji(this.dataset.value)" data-value="👽">👽</span>
+              <span onclick="onPlaceEmoji(this.dataset.value)" data-value="🤖">🤖</span>
+              <span onclick="onPlaceEmoji(this.dataset.value)" data-value="🦄">🦄</span>
+            </div>
+            
+            <button class="btn-right" onclick="onMoveRight()">👉🏼</button>
+          </div>
         </div>
       </main>
     </section>
@@ -125,7 +145,9 @@
           <li onclick="onSearchedWordCount(this)" data-value="happy">Happy</li>
           <li onclick="onSearchedWordCount(this)" data-value="sad">Sad</li>
           <li onclick="onSearchedWordCount(this)" data-value="crazy">Crazy</li>
-          <li onclick="onSearchedWordCount(this)" data-value="sarcastic">Sarcastic</li>
+          <li onclick="onSearchedWordCount(this)" data-value="sarcastic">
+            Sarcastic
+          </li>
           <li onclick="onSearchedWordCount(this)" data-value="funny">Funny</li>
         </ul>
       </div>

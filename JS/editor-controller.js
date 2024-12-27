@@ -40,7 +40,7 @@ function onSelectImg(elImg, id) {
 function renderMeme() {
   const meme = getMeme()
   gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
-  if(!meme.lines.length) return
+  if (!meme.lines.length) return
 
   if (!meme.selectedImgId) {
     gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
@@ -200,7 +200,7 @@ function renderTools() {
 }
 
 function drawText(params, idx, selectedLineIdx) {
-  if(!params.txt) return
+  if (!params.txt) return
   gCtx.lineWidth = 0.5
   gCtx.strokeStyle = params.color
   gCtx.fillStyle = params.fill
@@ -229,23 +229,8 @@ function drawText(params, idx, selectedLineIdx) {
     gCtx.strokeRect(x, y, rectWidth, rectHeight)
 
     getRectParams({ x, y, textWidth, textHeight })
-
-    // drawRect(
-    //   gElCanvas.width / 2 - textWidth / 2 - padding,
-    //   40 * idx + TEXT_GAP - textMetrics.actualBoundingBoxAscent - padding,
-    //   textWidth + 2 * padding,
-    //   textHeight + 2 * padding
-    // )
   }
 }
-
-// function drawRect(x, y, textWidth, textHeight) {
-//   gCtx.lineWidth = 5
-//   gCtx.strokeStyle = 'black'
-//   gCtx.strokeRect(x, y, textWidth, textHeight)
-
-//   getRectParams({ x, y, textWidth, textHeight })
-// }
 
 function coverCanvasWithImg(imgSrc, meme) {
   if (!imgSrc) return
@@ -259,11 +244,6 @@ function coverCanvasWithImg(imgSrc, meme) {
   const { selectedLineIdx } = meme
 
   meme.lines.forEach((line, idx) => {
-    // if (!line.isDrag) {
-    //   line.x = gElCanvas.width / 2
-    //   line.y = 40 * idx + TEXT_GAP
-    // }
-
     let { txt, x, y, size, fill, color, font, align, isDrag } = line
     drawText(
       { txt, x, y, size, fill, color, font, align },
@@ -294,4 +274,23 @@ function resizeCanvas() {
 function onDownloadImg(elLink) {
   const imgContent = gElCanvas.toDataURL('image/jpeg')
   elLink.href = imgContent
+}
+
+function onMoveLeft() {
+  const elEmojiContainer = document.querySelector(
+    '.emoji-container .emoji-carousel'
+  )
+  elEmojiContainer.scrollBy({ top: 0, left: -50, behavior: 'smooth' })
+}
+
+function onMoveRight() {
+  const elEmojiContainer = document.querySelector(
+    '.emoji-container .emoji-carousel'
+  )
+  elEmojiContainer.scrollBy({ top: 0, left: 50, behavior: 'smooth' })
+}
+
+function onPlaceEmoji(elEmoji) {
+  drawEmoji(elEmoji)
+  renderMeme()
 }

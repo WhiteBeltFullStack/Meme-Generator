@@ -13,6 +13,9 @@
 .space-between{
   justify-content: space-between;
 }
+.center{
+  justify-content: center;
+}
 
 .no-style{
    list-style: none;

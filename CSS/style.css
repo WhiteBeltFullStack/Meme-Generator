@@ -15,6 +15,7 @@
 @import 'components/header.css';
 @import 'components/editor-section.css';
 @import 'components/canvas-container.css';
+@import 'components/emoji-container.css';
 
 @import 'components/pagination.css';
 @import 'components/gallary-section.css';

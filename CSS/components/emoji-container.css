@@ -1,0 +1,43 @@
+.emoji-container {
+  padding: 20px;
+  gap: 20px;
+}
+
+.emoji-container .emoji-carousel {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  border-radius: 10px;
+  border: 1px solid black;
+  background-color: white;
+
+  width: 100px;
+
+  overflow-x: auto;
+  white-space: nowrap;
+  scrollbar-width: none;
+}
+.emoji-carousel > * {
+  padding-inline: 5px;
+  transition: 0.2s;
+}
+
+.emoji-container button {
+  display: flex;
+  cursor: pointer;
+  padding: 10px;
+  background-color: lightgrey;
+  border: 0px;
+  border-radius: 50%;
+  align-self: center;
+  transition: 0.2s;
+}
+
+.emoji-carousel > *:hover {
+  scale: 1.5;
+}
+
+.emoji-container button:hover {
+  scale: 1.5;
+}
