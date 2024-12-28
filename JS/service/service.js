@@ -4,6 +4,7 @@ var gInside = false
 var gImgs = []
 var gImagesLength
 var gCoreRectParams
+var gSavedMemes = []
 
 _createImgs()
 var gKeywordSearchCountMap = {
@@ -29,8 +30,13 @@ var gMeme = {
       font: 'Arial',
       align: 'center',
       isDrag: false,
+      isMouseOn:false,
     },
   ],
+}
+
+function getSavedMemes() {
+  return gSavedMemes
 }
 
 function getWords() {
@@ -102,6 +108,12 @@ function getImgById(id) {
   const img = gImgs.find((img) => img.id === id)
   return img
 }
+
+function getMemeByIdx(idx) {
+  
+  return gSavedMemes.find((savedMeme, savedIdx) => idx === savedIdx)
+}
+
 function addLine() {
   const newLine = {
     txt: 'Enter Text Here',
@@ -113,6 +125,7 @@ function addLine() {
     font: 'Arial',
     align: 'center',
     isDrag: false,
+    isMouseOn:false,
   }
   gMeme.lines.push(newLine)
   gMeme.selectedLineIdx = gMeme.lines.length - 1
@@ -148,7 +161,6 @@ function imgsLength() {
 }
 
 function getRectParams(rectParams) {
-  // gCoreRectParams = rectParams
   gMeme.lines[gMeme.selectedLineIdx].rectParams = rectParams
 }
 
@@ -221,4 +233,13 @@ function drawEmoji(elEmoji) {
     isDrag: false,
   }
   gMeme.lines.unshift(emojiDraw)
+  gMeme.selectedLineIdx = 0
+}
+
+function saveImgMeme(imgDataUrl) {
+  const savedMeme = {
+    ...gMeme,
+    imgDataUrl,
+  }
+  gSavedMemes.unshift(savedMeme)
 }

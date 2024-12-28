@@ -37,39 +37,52 @@ function onSelectImg(elImg, id) {
   renderMeme()
 }
 
-function renderMeme() {
-  const meme = getMeme()
-  gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
-  if (!meme.lines.length) return
-
-  if (!meme.selectedImgId) {
-    gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
-    gCtx.lineWidth = 1
-    gCtx.strokeStyle = 'black'
-    gCtx.fillStyle = 'red'
-    gCtx.font = `40px Arial`
-    gCtx.textAlign = 'center'
-    gCtx.textBaseline = 'middle'
-
-    gCtx.fillText(
-      'No Img - No Meme 4 You!',
-      gElCanvas.width / 2,
-      gElCanvas.height / 2
-    )
-    gCtx.strokeText(
-      'No Img - No Meme 4 You!',
-      gElCanvas.width / 2,
-      gElCanvas.height / 2
-    )
-  } else {
+function renderMeme(copyIdx) {
+  if (copyIdx) {
+    console.log('copyIdx:', copyIdx)
+    const copyMeme = getMemeByIdx(copyIdx)
     resizeCanvas()
-    setInitialTextPositions()
-    const img = getImgById(meme.selectedImgId)
+    const img = getImgById(copyMeme.selectedImgId)
+    console.log(img.url)
 
-    coverCanvasWithImg(img.url, meme)
+    coverCanvasWithImg(img.url, copyMeme)
+  } else {
+    const meme = getMeme()
+    gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
+    if (!meme.lines.length) return
+
+    if (!meme.selectedImgId) {
+      renderEmptyMemeMessage()
+    } else {
+      resizeCanvas()
+      setInitialTextPositions()
+      const img = getImgById(meme.selectedImgId)
+
+      coverCanvasWithImg(img.url, meme)
+    }
   }
 
   renderTools()
+}
+
+function renderEmptyMemeMessage() {
+  gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
+  gCtx.lineWidth = 1
+  gCtx.strokeStyle = 'black'
+  gCtx.fillStyle = 'red'
+  gCtx.font = `40px Arial`
+  gCtx.textAlign = 'center'
+  gCtx.textBaseline = 'middle'
+  gCtx.fillText(
+    'No Img - No Meme 4 You!',
+    gElCanvas.width / 2,
+    gElCanvas.height / 2
+  )
+  gCtx.strokeText(
+    'No Img - No Meme 4 You!',
+    gElCanvas.width / 2,
+    gElCanvas.height / 2
+  )
 }
 
 function addListeners() {
@@ -300,4 +313,13 @@ function onShareImg() {
   const encodedImgContent = encodeURIComponent(imgContent)
   const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedImgContent}&t=${encodedImgContent}`
   window.open(shareUrl, '_blank')
+}
+
+function onSaveImgMeme() {
+  const imgContent = gElCanvas.toDataURL('image/jpeg')
+  saveImgMeme(imgContent)
+
+  document.querySelector('.saved-section').hidden = true
+
+  renderSavedMemes()
 }

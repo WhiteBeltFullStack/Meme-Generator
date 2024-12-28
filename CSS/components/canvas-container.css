@@ -31,12 +31,13 @@
   font-size: 14px;
 }
 
-.actions-container .meme-input {
+.actions-container .meme-input,
+.actions-container label {
   border: 1px solid black;
   padding: 5px;
   border-radius: 7px;
   text-align: center;
-  transition: border-color 0.5s,box-shadow 0.5s;
+  transition: border-color 0.5s, box-shadow 0.5s;
 }
 
 .actions-container .meme-input:hover {
@@ -55,6 +56,9 @@
   border: 1px solid black;
 }
 
+.buttons-container {
+  gap: 5px;
+}
 .buttons-container button {
   color: white;
   text-decoration: none;

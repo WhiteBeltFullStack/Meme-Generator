@@ -39,10 +39,6 @@ function onRandomizeSec(ev) {
   elSearch.style.display = 'none'
   elSaved.hidden = true
 
-  // const elEditor = document.querySelector('.editor-section')
-  // const elSearch = document.querySelector('.search-section')
-  // const elGallary = document.querySelector('.gallary-section')
-  // const elSaved = document.querySelector('.saved-section')
 }
 
 

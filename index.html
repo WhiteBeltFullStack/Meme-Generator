@@ -8,14 +8,13 @@
   </head>
   <body onload="onInit()" class="main-layout">
     <div class="main-screen" onclick="onToggleMenu()"></div>
-
     <header class="main-header full">
       <div class="logo">Meme Master</div>
       <nav class="main-nav">
         <ul>
           <li><a href="" onclick="onGallarySec(event)">Gallary</a></li>
           <li><a href="" onclick="onEditorSec(event)">Editor</a></li>
-          <!-- <li><a href="" onclick="onSavedSec(event)">Saved</a></li> -->
+          <li><a href="" onclick="onSavedSec(event)">Saved</a></li>
           <!-- <li><a href="" onclick="onRandomizeSec(event)">Randomize</a></li> -->
         </ul>
       </nav>
@@ -87,6 +86,7 @@
           </select>
 
           <div class="buttons-container flex space-around">
+            <a href="#" class="btn" onclick="onSaveImgMeme()">Save</a>
             <button class="btn-facebook" onclick="onShareImg()">Share</button>
             <a
               href="#"
@@ -193,8 +193,8 @@
       </div>
     </section>
 
-    <section class="saved-section" hidden>
-      <main></main>
+    <section class="saved-section">
+      <main class="saved-container"></main>
     </section>
 
     <footer class="main-footer full">
