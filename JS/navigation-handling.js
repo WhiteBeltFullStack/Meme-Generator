@@ -7,30 +7,32 @@ const gNavigation = {
   elSaved: document.querySelector('.saved-section'),
 }
 
+
+
 function onGallarySec(ev) {
   ev.preventDefault()
   const { elEditor, elSearch, elGallary, elSaved } = gNavigation
-  elGallary.hidden = false
+  elGallary.style.display = 'block'
   elSearch.style.display = 'flex'
-  elEditor.hidden = true
-  elSaved.hidden = true
+  elEditor.style.display = 'none'
+  elSaved.style.display = 'none'
 }
 function onEditorSec(ev) {
   ev.preventDefault()
   const { elEditor, elSearch, elGallary, elSaved } = gNavigation
-  elEditor.hidden = false
-  elGallary.hidden = true
+  elGallary.style.display = 'none'
   elSearch.style.display = 'none'
-  elSaved.hidden = true
+  elEditor.style.display = 'block'
+  elSaved.style.display = 'none'
   renderMeme()
 }
 function onSavedSec(ev) {
   ev.preventDefault()
   const { elEditor, elSearch, elGallary, elSaved } = gNavigation
-  elSaved.hidden = false
-  elGallary.hidden = true
-  elEditor.hidden = true
+  elGallary.style.display = 'none'
   elSearch.style.display = 'none'
+  elEditor.style.display = 'none'
+  elSaved.style.display = 'block'
 }
 function onRandomizeSec(ev) {
   ev.preventDefault()

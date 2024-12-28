@@ -12,11 +12,15 @@ function renderSavedMemes() {
     <img class="saved-img" src="${meme.imgDataUrl}" alt="" onclick="onLoadSavedMeme(${idx})"> 
     `
   })
-  //   <img class="saved-img" src="${meme.imgDataUrl}" alt="" onclick="onLoadSavedMeme('${meme.selectedImgId}',${idx})">
 
   elSavedMemesContainer.innerHTML = strHtml.join('')
 }
 
 function onLoadSavedMeme(idx) {
-  renderMeme(idx)
+    const elEditorSection = document.querySelector('.editor-section')
+    const elSavedMemesContainer = document.querySelector('.saved-section')
+    
+    elSavedMemesContainer.style.display = 'none'
+    elEditorSection.style.display = 'block'
+    renderMeme(idx)
 }

@@ -27,30 +27,18 @@ function renderCanvas() {
 }
 
 function onSelectImg(elImg, id) {
-  const elSearch = (document.querySelector('.search-section').style.display =
-    'none')
-  const elEditor = (document.querySelector('.editor-section').hidden = false)
-  const elGallary = (document.querySelector('.gallary-section').hidden = true)
-  const elSaved = (document.querySelector('.saved-section').hidden = false)
+  const elSearch = document.querySelector('.search-section').style.display =  'none'
+  const elEditor = document.querySelector('.editor-section').style.display = 'block'
+  const elGallary = document.querySelector('.gallary-section').style.display =  'none'
+  const elSaved = document.querySelector('.saved-section').style.display =  'none'
 
   updateMeme(id)
   renderMeme()
 }
 
 function renderMeme(copyIdx = null) {
-  // if (copyIdx !== null) {
 
-  //   const copyMeme = getMemeByIdx(copyIdx)
-  //   gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
-  //   resizeCanvas()
-  //   const img = getImgById(copyMeme.selectedImgId)
-  //   console.log(img.url)
-
-  //   coverCanvasWithImg(img.url, copyMeme)
-  // }
-  // else {
   const meme = copyIdx !== null ? getMemeByIdx(copyIdx) : getMeme()
-  // const meme = getMeme()
   gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
   if (!meme.lines.length) return
 
