@@ -263,18 +263,9 @@ function drawEmoji(elEmoji) {
   gMeme.selectedLineIdx = 0
 }
 
-// function saveImgMeme(imgDataUrl) {
-//   const savedMeme = {
-//     ...gMeme,
-//     imgDataUrl,
-//   }
-//   console.log('MISHA LOG:', savedMeme)
-//   gSavedMemes.unshift(savedMeme)
-// }
 
 function saveImgMeme(imgDataUrl) {
-  const savedMeme = structuredClone(gMeme) // Creates a deep copy of gMeme
-  savedMeme.imgDataUrl = imgDataUrl // Add the new property
-  console.log('MISHA LOG:', savedMeme)
-  gSavedMemes.unshift(savedMeme) // Add to the beginning of gSavedMemes
+  const savedMeme = structuredClone(gMeme) 
+  savedMeme.imgDataUrl = imgDataUrl 
+  gSavedMemes.unshift(savedMeme) 
 }
