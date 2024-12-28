@@ -30,7 +30,7 @@ var gMeme = {
       font: 'Arial',
       align: 'center',
       isDrag: false,
-      isMouseOn:false,
+      isMouseOn: false,
     },
   ],
 }
@@ -110,8 +110,12 @@ function getImgById(id) {
 }
 
 function getMemeByIdx(idx) {
-  
-  return gSavedMemes.find((savedMeme, savedIdx) => idx === savedIdx)
+  const newCopiedMeme = gSavedMemes.find(
+    (savedMeme, savedIdx) => idx === savedIdx
+  )
+
+  gMeme = newCopiedMeme
+  return newCopiedMeme
 }
 
 function addLine() {
@@ -125,7 +129,7 @@ function addLine() {
     font: 'Arial',
     align: 'center',
     isDrag: false,
-    isMouseOn:false,
+    isMouseOn: false,
   }
   gMeme.lines.push(newLine)
   gMeme.selectedLineIdx = gMeme.lines.length - 1
@@ -236,10 +240,18 @@ function drawEmoji(elEmoji) {
   gMeme.selectedLineIdx = 0
 }
 
+// function saveImgMeme(imgDataUrl) {
+//   const savedMeme = {
+//     ...gMeme,
+//     imgDataUrl,
+//   }
+//   console.log('MISHA LOG:', savedMeme)
+//   gSavedMemes.unshift(savedMeme)
+// }
+
 function saveImgMeme(imgDataUrl) {
-  const savedMeme = {
-    ...gMeme,
-    imgDataUrl,
-  }
-  gSavedMemes.unshift(savedMeme)
+  const savedMeme = structuredClone(gMeme) // Creates a deep copy of gMeme
+  savedMeme.imgDataUrl = imgDataUrl // Add the new property
+  console.log('MISHA LOG:', savedMeme)
+  gSavedMemes.unshift(savedMeme) // Add to the beginning of gSavedMemes
 }

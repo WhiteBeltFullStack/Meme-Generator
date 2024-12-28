@@ -22,6 +22,7 @@ function onEditorSec(ev) {
   elGallary.hidden = true
   elSearch.style.display = 'none'
   elSaved.hidden = true
+  renderMeme()
 }
 function onSavedSec(ev) {
   ev.preventDefault()

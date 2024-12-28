@@ -37,31 +37,32 @@ function onSelectImg(elImg, id) {
   renderMeme()
 }
 
-function renderMeme(copyIdx) {
-  if (copyIdx) {
-    console.log('copyIdx:', copyIdx)
-    const copyMeme = getMemeByIdx(copyIdx)
+function renderMeme(copyIdx = null) {
+  // if (copyIdx !== null) {
+
+  //   const copyMeme = getMemeByIdx(copyIdx)
+  //   gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
+  //   resizeCanvas()
+  //   const img = getImgById(copyMeme.selectedImgId)
+  //   console.log(img.url)
+
+  //   coverCanvasWithImg(img.url, copyMeme)
+  // }
+  // else {
+  const meme = copyIdx !== null ? getMemeByIdx(copyIdx) : getMeme()
+  // const meme = getMeme()
+  gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
+  if (!meme.lines.length) return
+
+  if (meme.selectedImgId) {
     resizeCanvas()
-    const img = getImgById(copyMeme.selectedImgId)
-    console.log(img.url)
+    setInitialTextPositions()
+    const img = getImgById(meme.selectedImgId)
 
-    coverCanvasWithImg(img.url, copyMeme)
+    coverCanvasWithImg(img.url, meme)
   } else {
-    const meme = getMeme()
-    gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
-    if (!meme.lines.length) return
-
-    if (!meme.selectedImgId) {
-      renderEmptyMemeMessage()
-    } else {
-      resizeCanvas()
-      setInitialTextPositions()
-      const img = getImgById(meme.selectedImgId)
-
-      coverCanvasWithImg(img.url, meme)
-    }
+    renderEmptyMemeMessage()
   }
-
   renderTools()
 }
 
@@ -247,6 +248,7 @@ function drawText(params, idx, selectedLineIdx) {
 
 function coverCanvasWithImg(imgSrc, meme) {
   if (!imgSrc) return
+  console.log('covering:')
   const elImg = new Image()
   elImg.src = imgSrc
 
@@ -279,6 +281,7 @@ function setInitialTextPositions() {
 }
 
 function resizeCanvas() {
+  console.log('Resize canvas log')
   const elContainer = document.querySelector('.canvas-container')
   gElCanvas.width = elContainer.clientWidth - 2
   gElCanvas.height = elContainer.clientHeight - 2
