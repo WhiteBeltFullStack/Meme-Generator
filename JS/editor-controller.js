@@ -27,17 +27,21 @@ function renderCanvas() {
 }
 
 function onSelectImg(elImg, id) {
-  const elSearch = document.querySelector('.search-section').style.display =  'none'
-  const elEditor = document.querySelector('.editor-section').style.display = 'block'
-  const elGallary = document.querySelector('.gallary-section').style.display =  'none'
-  const elSaved = document.querySelector('.saved-section').style.display =  'none'
+  const elSearch = (document.querySelector('.search-section').style.display =
+    'none')
+  const elEditor = (document.querySelector('.editor-section').style.display =
+    'block')
+  const elGallary = (document.querySelector('.gallary-section').style.display =
+    'none')
+  const elSaved = (document.querySelector('.saved-section').style.display =
+    'none')
 
+  resetNewImgData()
   updateMeme(id)
   renderMeme()
 }
 
 function renderMeme(copyIdx = null) {
-
   const meme = copyIdx !== null ? getMemeByIdx(copyIdx) : getMeme()
   gCtx.clearRect(0, 0, gElCanvas.width, gElCanvas.height)
   if (!meme.lines.length) return
@@ -236,7 +240,6 @@ function drawText(params, idx, selectedLineIdx) {
 
 function coverCanvasWithImg(imgSrc, meme) {
   if (!imgSrc) return
-  console.log('covering:')
   const elImg = new Image()
   elImg.src = imgSrc
 
@@ -269,7 +272,6 @@ function setInitialTextPositions() {
 }
 
 function resizeCanvas() {
-  console.log('Resize canvas log')
   const elContainer = document.querySelector('.canvas-container')
   gElCanvas.width = elContainer.clientWidth - 2
   gElCanvas.height = elContainer.clientHeight - 2

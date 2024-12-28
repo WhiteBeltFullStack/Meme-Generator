@@ -35,6 +35,28 @@ var gMeme = {
   ],
 }
 
+function resetNewImgData(){
+  gMeme = {
+    selectedImgId: null,
+    selectedLineIdx: 0,
+  
+    lines: [
+      {
+        txt: 'Enter Text Here',
+        x: 0,
+        y: 0,
+        size: 40,
+        fill: '#ff0000',
+        color: '#000000',
+        font: 'Arial',
+        align: 'center',
+        isDrag: false,
+        isMouseOn: false,
+      },
+    ],
+  }
+}
+
 function getSavedMemes() {
   return gSavedMemes
 }
@@ -203,6 +225,7 @@ function isTextClicked(clickedPos) {
     return false
   })
 }
+
 
 function setTextDrag(isDrag) {
   gMeme.lines[gMeme.selectedLineIdx].isDrag = isDrag
