@@ -7,8 +7,6 @@ const gNavigation = {
   elSaved: document.querySelector('.saved-section'),
 }
 
-
-
 function onGallarySec(ev) {
   ev.preventDefault()
   const { elEditor, elSearch, elGallary, elSaved } = gNavigation
@@ -41,10 +39,8 @@ function onRandomizeSec(ev) {
   elEditor.hidden = true
   elSearch.style.display = 'none'
   elSaved.hidden = true
-
 }
 
-
-function onToggleMenu(){
+function onToggleMenu() {
   document.body.classList.toggle('menu-open')
 }
